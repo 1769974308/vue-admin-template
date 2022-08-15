@@ -26,7 +26,7 @@ import Layout from '@/layout'
  */
 
 /**
- * constantRoutes
+ * constantRoutes 在所有的角色页面上都会显示
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
@@ -47,6 +47,12 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   }
+]
+/**
+ * 会根据路由的 meta 参数中的roles进行角色权限限制
+ */
+export const asyncRoutes = [
+
 ]
 
 const createRouter = () => new Router({
