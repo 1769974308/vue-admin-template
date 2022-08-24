@@ -1,24 +1,44 @@
 import request from '@/utils/request'
 
+/**
+ * 用户登录
+ */
 export function login(data) {
   return request({
-    url: '/vue-admin-template/user/login',
+    url: '/admin/login',
     method: 'post',
     data
   })
 }
 
-export function getInfo(token) {
+/**
+ * 获取用户详情
+ */
+export function getInfo(name) {
   return request({
-    url: '/vue-admin-template/user/info',
+    url: '/admin/info',
     method: 'get',
-    params: { token }
+    params: { name }
   })
 }
 
+/**
+ * 获取动态路由
+ */
+export function getMoveRouter(param) {
+  return request({
+    url: '/vue-admin-template/user/info',
+    method: 'get',
+    params: { param }
+  })
+}
+
+/**
+ * 退出系统
+ */
 export function logout() {
   return request({
-    url: '/vue-admin-template/user/logout',
+    url: '/admin/logout',
     method: 'post'
   })
 }

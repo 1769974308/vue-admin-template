@@ -1,6 +1,7 @@
-import { login, getInfo, logout } from '@/api'
+import { login, getInfo, logout } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import store from './../index'
 
 const getDefaultState = () => {
   return {
@@ -21,6 +22,9 @@ const mutations = {
   },
   SET_NAME: (state, name) => {
     state.name = name
+  },
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -52,10 +56,14 @@ const actions = {
         if (!data) {
           return reject('Verification failed, please Login again.')
         }
-
-        const { username, icon } = data
+        // eslint-disable-next-line no-unused-vars
+        const { username, icon, roles } = data
+        if (!roles || roles.length <= 0) {
+          reject('getInfo:roles must be a non-null array!')
+        }
 
         commit('SET_NAME', username)
+        commit('SET_ROLES', roles)
         commit('SET_AVATAR', icon)
         resolve(data)
       }).catch(error => {
@@ -71,6 +79,7 @@ const actions = {
         removeToken() // must remove  token  first
         resetRouter()
         commit('RESET_STATE')
+        commit('SET_ROLES', [])
         resolve()
       }).catch(error => {
         reject(error)
